@@ -7,41 +7,46 @@ from sklearn import linear_model, preprocessing
 import pickle
 import csv
 
-#TODO: Set up a folder that will contain the file
-#then append the appropriate path to the user input
-#ex: fileIn = car.data
-#    fileIn = "\folderWithCSV\" + fileIn
-fileIn = input("Enter file name (with extention): ")
+#User selects a .csv file from the data folder
+fileIn = "data" + "\\" + input("Enter file name (with ext): ")
 
 data = pd.read_csv(fileIn)
+
+namesInCsv = pd.read_csv(fileIn, nrows=0)
+namesClassified = []
+
+for name in namesInCsv:
+	namesClassified.append(name)
 
 #set variables = items in csv
 #currently hard coded
 #TODO: Take row[0] of csv split on ","
 #Then change data["buying"] to the item [0] in row[0]
 le = preprocessing.LabelEncoder()
-buying = le.fit_transform((data["buying"]))
-maint = le.fit_transform((data["maint"]))
-door = le.fit_transform((data["door"]))
-persons = le.fit_transform((data["persons"]))
-lug_boot = le.fit_transform((data["lug_boot"]))
-safety = le.fit_transform((data["safety"]))
-cls = le.fit_transform((data["class"]))
+itemAt0 = le.fit_transform((data[namesClassified[0]]))
+itemAt1 = le.fit_transform((data[namesClassified[1]]))
+itemAt2 = le.fit_transform((data[namesClassified[2]]))
+itemAt3 = le.fit_transform((data[namesClassified[3]]))
+itemAt4 = le.fit_transform((data[namesClassified[4]]))
+itemAt5 = le.fit_transform((data[namesClassified[5]]))
+itemAt6 = le.fit_transform((data[namesClassified[6]]))
 
 predict = "class"
 
 #currently car.data items are hard coded
 #TODO: modify this zip function to have items for whichever data points are pertanent
-x = list(zip(buying, maint, door, persons, lug_boot, safety))
-y = list(cls)
+x = list(zip(itemAt0, itemAt1, itemAt2, itemAt3, itemAt4, itemAt5))
+y = list(itemAt6)
 
 #TODO: get user input to set the test_size for the training split
 #give users a reccomended test size
-x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x, y, test_size=0.1)
+testSize = input("Enter your test size: ")
+x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x, y, test_size=float(testSize))
 
 #TODO: allow users to specify the number of neighbors
 #give users a reccomendation
-model = KNeighborsClassifier(n_neighbors=9)
+numNeighbors = input("Enter the number of neighbors to use: ")
+model = KNeighborsClassifier(n_neighbors=int(numNeighbors))
 
 model.fit(x_train, y_train)
 acc = model.score(x_test, y_test)
