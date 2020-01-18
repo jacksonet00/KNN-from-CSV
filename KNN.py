@@ -21,8 +21,9 @@ namesClassified = []
 for name in namesInCsv:
 	namesClassified.append(name)
 
-#TODO: make this section variable length based on the number of rows of data
+#Future Update: This section will be of variable length
 le = preprocessing.LabelEncoder()
+#Five Data Points:
 if len(data[namesClassified[0]]) != 0:
 	itemAt0 = le.fit_transform((data[namesClassified[0]]))
 if len(data[namesClassified[1]]) != 0:
@@ -35,21 +36,20 @@ if len(data[namesClassified[4]]) != 0:
 	itemAt4 = le.fit_transform((data[namesClassified[4]]))
 if len(data[namesClassified[5]]) != 0:
 	itemAt5 = le.fit_transform((data[namesClassified[5]]))
+#Mandatory Prediction Column 7:
 if len(data[namesClassified[6]]) != 0:
 	itemAt6 = le.fit_transform((data[namesClassified[6]]))
 
-#TODO: Allow the user to specify the column that will be the prediction data (1-7) [x-1]
-predict = data[namesClassified[6]]
+predict = itemAt6
 
-#TODO: change this to data[namesClassified[x]] so that it will include all except predict
 x = list(zip(itemAt0, itemAt1, itemAt2, itemAt3, itemAt4, itemAt5))
 y = list(itemAt6)
 
-#Sets test size of data based on user input
+#Allows user to partition the test group
 testSize = input("Enter your test size: ")
 x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x, y, test_size=float(testSize))
 
-#Sets number of neighbors based on user input
+#Allows the user to specify the number of neighbors in the model
 numNeighbors = input("Enter the number of neighbors to use: ")
 model = KNeighborsClassifier(n_neighbors=int(numNeighbors))
 
@@ -58,8 +58,8 @@ acc = model.score(x_test, y_test)
 print("The model had an accuracy of {}%" .format(round((acc * 100), 2)))
 
 predicted = model.predict(x_test)
-#TODO: Find a way to store the actual prediction names in this list
-names = ["unacc", "acc", "good", "vgood"]
+#Future Update: Names of prediction values will be stored in this list
+names = []
 
 #Allows user to visualize predictions
 usrInExample = input("Would you like to see prediction data? (y/n) ")
@@ -67,6 +67,7 @@ if usrInExample == "y":
 	usrInExampleSize = input(("Enter number of examples to display (less than {}): " .format(len(predicted[x_test]))))
 	print("Example predictions:")
 	for x in range((int(usrInExampleSize))):
+		#Future Update: Prediction values will correspond with names in prediction column
 		#Predicted[x] & y_test[x] will show numerical representation of predictions
 		#names[predicted[x]] will hold the name of the prediction (same with y_test)
 	    print("Predicted: ", predicted[x], "\t | \tActual: ", y_test[x])
@@ -81,43 +82,3 @@ if usrInSaveModel == "y":
 #Closing Message
 print("Thank you for using KNN from CSV.")
 print("Remember to refer to the README.md file for more info on loading your saved models.")
-
-
-"""
-GENERAL NOTES ON FUNCTIONALITY
-______________________________
-
-Folder Structure:
-.py file and README.md in base folder
-models folder
-data folder
-
-program open with reminder to read instructions on README
-
-users should upload csv files to data folder
-generated models should be saved to models folder
-
-program will ask which file you would like to use
-file name is entered
-program automatically appends path to choose the correct model
-
-program will ask for test size (with recommendation)
-program will ask for num_neighbors (with recommendation)
-
-program will read out model complete with accuracy
-program will ask if you would like to see prediction data
-if yes it will ask number of examples
-
-program will print prediction data examples
-
-program will ask if you would like to save your model
-if yes, program will ask user for a file name
-model file will be saved to model folder
-
-program end with message:
-for more info on how to load and use your stored model
-refer to the README document
-
-
-
-"""
