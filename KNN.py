@@ -67,8 +67,9 @@ if usrInExample == "y":
 
 usrInSaveModel = input("Would you like to save this model? (y/n) ")
 if usrInSaveModel == "y":
-	filename = "stored_model.sav"
-	pickle.dump(model, open(filename, 'wb'))
+	filename = "models\\" + input("Enter a file name to store model: ") + ".sav"
+	with open(filename, 'wb') as f:
+		pickle.dump(model, f)
 
 
 """
