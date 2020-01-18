@@ -11,5 +11,6 @@ print(namesClassified)
 
 itemsAt0 = data[namesClassified[0]]
 print(itemsAt0)
+print(len(data[namesClassified[0]]))
 
 print(data["buying"])

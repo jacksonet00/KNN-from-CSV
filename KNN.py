@@ -7,8 +7,11 @@ from sklearn import linear_model, preprocessing
 import pickle
 import csv
 
+#Opening Message
+print("Hello, you will find instructions for building your model in the README.md file.")
+
 #User selects a .csv file from the data folder
-fileIn = "data" + "\\" + input("Enter file name (with ext): ")
+fileIn = "data\\" + input("Enter file name (with ext): ")
 
 data = pd.read_csv(fileIn)
 
@@ -18,33 +21,35 @@ namesClassified = []
 for name in namesInCsv:
 	namesClassified.append(name)
 
-#set variables = items in csv
-#currently hard coded
-#TODO: Take row[0] of csv split on ","
-#Then change data["buying"] to the item [0] in row[0]
+#TODO: make this section variable length based on the number of rows of data
 le = preprocessing.LabelEncoder()
-itemAt0 = le.fit_transform((data[namesClassified[0]]))
-itemAt1 = le.fit_transform((data[namesClassified[1]]))
-itemAt2 = le.fit_transform((data[namesClassified[2]]))
-itemAt3 = le.fit_transform((data[namesClassified[3]]))
-itemAt4 = le.fit_transform((data[namesClassified[4]]))
-itemAt5 = le.fit_transform((data[namesClassified[5]]))
-itemAt6 = le.fit_transform((data[namesClassified[6]]))
+if len(data[namesClassified[0]]) != 0:
+	itemAt0 = le.fit_transform((data[namesClassified[0]]))
+if len(data[namesClassified[1]]) != 0:
+	itemAt1 = le.fit_transform((data[namesClassified[1]]))
+if len(data[namesClassified[2]]) != 0:
+	itemAt2 = le.fit_transform((data[namesClassified[2]]))
+if len(data[namesClassified[3]]) != 0:
+	itemAt3 = le.fit_transform((data[namesClassified[3]]))
+if len(data[namesClassified[4]]) != 0:
+	itemAt4 = le.fit_transform((data[namesClassified[4]]))
+if len(data[namesClassified[5]]) != 0:
+	itemAt5 = le.fit_transform((data[namesClassified[5]]))
+if len(data[namesClassified[6]]) != 0:
+	itemAt6 = le.fit_transform((data[namesClassified[6]]))
 
-predict = "class"
+#TODO: Allow the user to specify the column that will be the prediction data (1-7) [x-1]
+predict = data[namesClassified[6]]
 
-#currently car.data items are hard coded
-#TODO: modify this zip function to have items for whichever data points are pertanent
+#TODO: change this to data[namesClassified[x]] so that it will include all except predict
 x = list(zip(itemAt0, itemAt1, itemAt2, itemAt3, itemAt4, itemAt5))
 y = list(itemAt6)
 
-#TODO: get user input to set the test_size for the training split
-#give users a reccomended test size
+#Sets test size of data based on user input
 testSize = input("Enter your test size: ")
 x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(x, y, test_size=float(testSize))
 
-#TODO: allow users to specify the number of neighbors
-#give users a reccomendation
+#Sets number of neighbors based on user input
 numNeighbors = input("Enter the number of neighbors to use: ")
 model = KNeighborsClassifier(n_neighbors=int(numNeighbors))
 
@@ -56,20 +61,26 @@ predicted = model.predict(x_test)
 #TODO: Find a way to store the actual prediction names in this list
 names = ["unacc", "acc", "good", "vgood"]
 
+#Allows user to visualize predictions
 usrInExample = input("Would you like to see prediction data? (y/n) ")
 if usrInExample == "y":
-	usrInExampleSize = input(("Enter list size (less than {}): " .format(len(predicted[x_test]))))
+	usrInExampleSize = input(("Enter number of examples to display (less than {}): " .format(len(predicted[x_test]))))
 	print("Example predictions:")
 	for x in range((int(usrInExampleSize))):
 		#Predicted[x] & y_test[x] will show numerical representation of predictions
 		#names[predicted[x]] will hold the name of the prediction (same with y_test)
 	    print("Predicted: ", predicted[x], "\t | \tActual: ", y_test[x])
 
+#Allows user to save the model to the models folder with a custom file name
 usrInSaveModel = input("Would you like to save this model? (y/n) ")
 if usrInSaveModel == "y":
 	filename = "models\\" + input("Enter a file name to store model: ") + ".sav"
 	with open(filename, 'wb') as f:
 		pickle.dump(model, f)
+
+#Closing Message
+print("Thank you for using KNN from CSV.")
+print("Remember to refer to the README.md file for more info on loading your saved models.")
 
 
 """
