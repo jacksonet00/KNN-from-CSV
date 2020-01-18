@@ -21,21 +21,37 @@ namesClassified = []
 for name in namesInCsv:
 	namesClassified.append(name)
 
+#Empty numpy array to replace empty columns
+emptyColumn = []
+emptyArray = np.asarray(emptyColumn)
+
 #Future Update: This section will be of variable length
 le = preprocessing.LabelEncoder()
 #Five Data Points:
 if len(data[namesClassified[0]]) != 0:
 	itemAt0 = le.fit_transform((data[namesClassified[0]]))
+else:
+	itemAt0 = emptyArray
 if len(data[namesClassified[1]]) != 0:
 	itemAt1 = le.fit_transform((data[namesClassified[1]]))
+else:
+	itemAt1 = emptyArray
 if len(data[namesClassified[2]]) != 0:
 	itemAt2 = le.fit_transform((data[namesClassified[2]]))
+else:
+	itemAt2 = emptyArray
 if len(data[namesClassified[3]]) != 0:
 	itemAt3 = le.fit_transform((data[namesClassified[3]]))
+else:
+	itemAt3 = emptyArray
 if len(data[namesClassified[4]]) != 0:
 	itemAt4 = le.fit_transform((data[namesClassified[4]]))
+else:
+	itemAt4 = emptyArray
 if len(data[namesClassified[5]]) != 0:
 	itemAt5 = le.fit_transform((data[namesClassified[5]]))
+else:
+	itemAt5 = emptyArray
 #Mandatory Prediction Column 7:
 if len(data[namesClassified[6]]) != 0:
 	itemAt6 = le.fit_transform((data[namesClassified[6]]))
