@@ -1,5 +1,6 @@
 # KNN from CSV
 Build and save K Nearest Neighbors models from .csv files!
+[![Run on Repl.it](https://repl.it/badge/github/jacksonet00/KNN-from-CSV)](https://repl.it/github/jacksonet00/KNN-from-CSV)
 
 ## Requirements.
 * Sklearn
