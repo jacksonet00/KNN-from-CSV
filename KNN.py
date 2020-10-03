@@ -11,7 +11,7 @@ import csv
 print("Hello, you will find instructions for building your model in the README.md file.")
 
 #User selects a .csv file from the data folder
-fileIn = "data\\" + input("Enter file name (with ext): ")
+fileIn = "data/" + input("Enter file name (with ext): ")
 
 data = pd.read_csv(fileIn)
 
