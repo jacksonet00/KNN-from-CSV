@@ -1,4 +1,4 @@
-[![Run on Repl.it](https://repl.it/badge/github/jacksonet00/KNN-from-CSV)](https://repl.it/github/jacksonet00/KNN-from-CSV)
+[![Run on Repl.it](https://repl.it/badge/github/jacksonet00/KNN-from-CSV)](https://repl.it/@jacksonet00/KNN-from-CSV)
 # KNN from CSV
 Build and save K Nearest Neighbors models from .csv files!
 
@@ -10,7 +10,7 @@ Build and save K Nearest Neighbors models from .csv files!
 ## Functionality.
 KNN from CSV contains a main program (KNN.py) as well as two subfolders (data and models). When run, this program will allow the user to select a .csv file from the data folder and build a K Nearest Neighbors model of that data which will be stored in the models folder.
 
-## Tutorial.
+## Tutorial: Run the [demo version][1] in your browser.
 * Drag any number of .csv files into the data folder. This file should be 7 columns or less of data and the 7th column should contain the data to be predicted by the model.
 
 * Run the file knn.py
@@ -37,3 +37,5 @@ This product is currently version 1.0. The following updates and changes will co
 * The user will be able to select a column to predict (currently this must be the 7th column, although columns 1-6 may be left blank).
 * The prediction visualizer will be able to represent the names given in the .csv file rather than the model's numerical representation fo those values.
 * The user will be able to retrain a model for improved accuracy without rerunning the program.
+
+[1]: <https://repl.it/@jacksonet00/KNN-from-CSV>
